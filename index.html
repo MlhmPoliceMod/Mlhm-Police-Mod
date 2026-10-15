@@ -297,7 +297,7 @@ textarea.fld{min-height:110px;resize:vertical}
 ol.rl>li,ul.rl>li{counter-increment:r;display:flex;gap:14px;align-items:start;padding:14px 16px;border-radius:16px;background:var(--bg);border:1px solid var(--line);line-height:1.9;animation:swap .5s cubic-bezier(.2,.9,.2,1) both;transition:border-color .25s,transform .25s}
 ol.rl>li:hover,ul.rl>li:hover{border-color:var(--g);transform:translateX(-4px)}
 ol.rl>li::before{content:counter(r);flex:none;width:30px;height:30px;border-radius:10px;background:var(--g);color:#031004;font-family:var(--fh);font-weight:700;display:grid;place-items:center;font-size:14px;margin-top:2px}
-ul.rl.dot>li::before{content:"";flex:none;width:9px;height:9px;border-radius:50%;background:var(--g);box-shadow:0 0 10px var(--g);margin-top:12px}
+ul.rl.bul>li::before{content:"";flex:none;width:9px;height:9px;border-radius:50%;background:var(--g);box-shadow:0 0 10px var(--g);margin-top:12px}
 .rl .sub{margin:8px 0 0;padding-inline-start:18px;color:var(--muted)}
 .rl .sub li{animation:none;display:list-item;padding:0;border:0;background:none;list-style:disc}
 .rl .sub li::before{display:none}
@@ -657,7 +657,7 @@ function showCat(i){
   c.blocks.forEach(b=>{
     if(b.h)h+=`<h4 class="rh">${b.h}</h4>`;
     if(b.ol)h+=`<ol class="rl">${b.ol.map(x=>rli(x,d++)).join("")}</ol>`;
-    if(b.ul)h+=`<ul class="rl dot">${b.ul.map(x=>rli(x,d++)).join("")}</ul>`;
+    if(b.ul)h+=`<ul class="rl bul">${b.ul.map(x=>rli(x,d++)).join("")}</ul>`;
   });
   if(c.warn)h+=`<div class="warn">${c.warn}</div>`;
   if(c.outro)h+=`<p class="ro">${c.outro.map(fmt).join("<br>")}</p>`;
@@ -669,7 +669,7 @@ rq.addEventListener("input",()=>{
   if(!q){showCat(rcat);return}
   const res=[];
   RULES.forEach((c,ci)=>c.blocks.forEach(b=>[...(b.ol||[]),...(b.ul||[])].forEach(x=>{const t=typeof x==="string"?x:x.t+" "+(x.sub||[]).join(" ");if(norm(t.replace(/\[\[|\]\]/g,"")).includes(q))res.push([ci,t])})));
-  rbody.innerHTML=`<h3 class="t">نتائج البحث (${res.length})</h3>`+(res.length?`<ul class="rl dot">${res.map(([ci,t],k)=>`<li style="animation-delay:${Math.min(k*30,400)}ms"><div><span class="tag">${RULES[ci].e} ${RULES[ci].t}</span><br>${fmt(t)}</div></li>`).join("")}</ul>`:'<p class="ri">لا توجد نتائج. جرّب كلمة ثانية.</p>');
+  rbody.innerHTML=`<h3 class="t">نتائج البحث (${res.length})</h3>`+(res.length?`<ul class="rl bul">${res.map(([ci,t],k)=>`<li style="animation-delay:${Math.min(k*30,400)}ms"><div><span class="tag">${RULES[ci].e} ${RULES[ci].t}</span><br>${fmt(t)}</div></li>`).join("")}</ul>`:'<p class="ri">لا توجد نتائج. جرّب كلمة ثانية.</p>');
   document.querySelectorAll(".rc").forEach(b=>b.classList.remove("on"));
 });
 showCat(0);
