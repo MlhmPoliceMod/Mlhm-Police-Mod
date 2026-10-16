@@ -332,6 +332,17 @@ ul.rl.bul>li::before{content:"";flex:none;width:9px;height:9px;border-radius:50%
 .xres .big.bad{color:#ff7a7a}
 .xag{display:flex;gap:12px;align-items:start;text-align:start;margin:18px 0;padding:14px 16px;border:1px dashed rgba(27,208,47,.5);border-radius:14px;line-height:1.8}
 .xag input{width:20px;height:20px;accent-color:var(--g);margin-top:4px;flex:none}
+.jn{border-color:rgba(27,208,47,.6);color:var(--g)}
+.xstep{display:flex;gap:12px;align-items:center;margin:0 0 12px}
+.xstep b{width:30px;height:30px;border-radius:10px;background:var(--g);color:#031004;display:grid;place-items:center;font-family:var(--fh);flex:none}
+.xmsg{padding:12px 14px;border-radius:12px;border:1px solid var(--line);margin:14px 0;line-height:1.8}
+.xmsg.bad{border-color:#ff5a5a;background:rgba(255,90,90,.1);color:#ff8a8a}
+.xo.sel{border-color:var(--g);background:rgba(27,208,47,.16)}
+.xo:disabled{cursor:default;transform:none}
+.pimg{margin:-26px -26px 18px;aspect-ratio:16/9;overflow:hidden;background:var(--bg)}
+.pimg img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}
+.pk:hover .pimg img{transform:scale(1.07)}
+.sheet .pimg{margin:0 0 16px;border-radius:18px}
 /* ===== mobile ===== */
 @media(max-width:900px){
   .app{flex-direction:column-reverse}
@@ -391,9 +402,9 @@ ul.rl.bul>li::before{content:"";flex:none;width:9px;height:9px;border-radius:50%
           <div class="rot"><span class="dot"></span><span id="rot">توزيع الحزم مفتوح</span></div>
           <div class="ctas">
             <button class="btn pri" data-go="packages"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg>تصفح الحزم</button>
-            <button class="btn sec" data-go="transfer">اطلب نقل</button>
+            <a class="btn sec jn" id="joinFive" target="_blank" rel="noopener noreferrer" hidden style="text-decoration:none">🎮 ادخل السيرفر</a><button class="btn sec" id="copyConn" hidden>انسخ أمر الاتصال</button><button class="btn sec" data-go="transfer">اطلب نقل</button>
           </div>
-          <div class="dcount" id="dcount" hidden><div><span class="dot"></span><b id="dcO">0</b><span>متصل الآن</span></div><div><span>👥</span><b id="dcM">0</b><span>عضو في الديسكورد</span></div></div>
+          <div class="dcount" id="dcount"><div id="dcD1" hidden><span class="dot"></span><b id="dcO">0</b><span>متصل الآن في الديسكورد</span></div><div id="dcD2" hidden><span>👥</span><b id="dcM">0</b><span>عضو في الديسكورد</span></div><div id="dcFive" hidden><span>🎮</span><b id="dcFO">0</b><span id="dcFMs">/ <b id="dcFM">0</b></span><span>لاعب داخل السيرفر</span></div></div>
         </div>
         <div class="stage" id="stage">
           <div class="ring r2"></div><div class="ring r1"></div>
@@ -436,7 +447,7 @@ ul.rl.bul>li::before{content:"";flex:none;width:9px;height:9px;border-radius:50%
 
     <!-- RANKS -->
     <section class="page" id="p-ranks">
-      <div class="ph"><div><h2 class="rv">ترتيب العسكرية</h2><p class="rv">السلم الكامل للرتب من جندي إلى فريق أول. اضغط على أي رتبة لمعرفة مسؤوليتها.</p></div><div class="banner rv"><span class="dot"></span>نقل العسكرية مفتوح</div></div>
+      <div class="ph"><div><h2 class="rv">ترتيب العسكرية</h2><p class="rv">السلم الكامل للرتب من جندي إلى فريق أول. اضغط على أي رتبة لمعرفة مسؤوليتها.</p></div><div class="banner rv"><span class="dot"></span>ترتيب العسكرية مفتوح</div></div>
       <div class="ladder">
         <div class="col"><h3 class="rv">الأفراد</h3><div class="steps" id="rkA"></div></div>
         <div class="col"><h3 class="rv">الضباط</h3><div class="steps" id="rkB"></div></div>
@@ -471,26 +482,12 @@ ul.rl.bul>li::before{content:"";flex:none;width:9px;height:9px;border-radius:50%
       </div>
       <div class="foot">MLHM | Police Mode</div>
     </section>
-
-    <!-- ADMIN EXAM -->
-    <section class="page" id="p-adminexam">
-      <div class="ph"><div><h2 class="rv">اختبار إلكتروني للإدارة</h2><p class="rv">مخصص لمن حصل على رول القبول المبدئي في الإدارة.</p></div></div>
-      <div class="exam rv" id="ex-adminexam"></div>
-      <div class="foot">MLHM | Police Mode</div>
-    </section>
-
-    <!-- ACTIVATION EXAM -->
-    <section class="page" id="p-activate">
-      <div class="ph"><div><h2 class="rv">اختبار تفعيل إلكتروني</h2><p class="rv">مخصص لمن لم يوافق بعد على الشروط والأحكام.</p></div></div>
-      <div class="exam rv" id="ex-activate"></div>
-      <div class="foot">MLHM | Police Mode</div>
-    </section>
   </main>
 </div>
 
 <div class="ov" id="ov"></div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="shT">
-  <div class="grab"></div><h3 id="shT"></h3><p id="shP" style="color:var(--muted);line-height:1.8;margin:0 0 14px"></p><ul id="shL" class="ft"></ul><div id="shE" style="margin-bottom:16px"></div>
+  <div class="grab"></div><div class="pimg" id="shImg" hidden></div><h3 id="shT"></h3><p id="shP" style="color:var(--muted);line-height:1.8;margin:0 0 14px"></p><ul id="shL" class="ft"></ul><div id="shE" style="margin-bottom:16px"></div>
   <div class="pr" id="shPr"></div>
   <p style="margin:0 0 16px;color:var(--muted);font-size:14px">للشراء يرجى فتح تذكرة في سيرفر الديسكورد.</p>
   <div class="ctas"><a class="btn pri" href="https://discord.gg/MLHM" target="_blank" rel="noopener noreferrer" style="text-decoration:none">افتح تذكرة للشراء</a><button class="btn sec" id="shClose">إغلاق</button></div>
@@ -503,12 +500,12 @@ document.querySelectorAll("img[data-logo]").forEach(i=>i.src=LOGO);
 
 /* ---------- editable data ---------- */
 const PACKAGES=[
- {n:"حزمة التهريب",t:"المواطنين",e:"🛻",i:"هذه الحزمة هي التي تفتح لك التهريب داخل المدينة.",f:["9 مركبات","قابلة للتعديل والزيادة","إكسترا خاص لكل مركبة"],p:30},
- {n:"حزمة VIP",t:"المواطنين",e:"🎖️",f:["تشمل الحزمة أكثر من 60 مركبة","الحزمة واقعية بالكامل","وزنيات واقعية","إكسترا واقعي وجودة عالية في تفاصيل المركبة","أصوات المركبات المعدلة واقعية"],p:50},
- {n:"حزمة المعدات الثقيلة",t:"المواطنين",e:"🚚",f:["مشابهة للواقع وداخلية واقعية","أنميشن لحركة الدفرنسات","عدد التريلات 8"],x:["بوز سقس","بوز نقل","بوز قلاب","سوبر سقس راس","راس بوز","إل بي عايدي","إل بي سقس","راس إل بي سقس"],p:70},
- {n:"حزمة ELITE",t:"المواطنين",e:"💠",f:["عدد المركبات أكثر من 70","مركبات واقعية بالكامل من وزنيات وإكسترا","أصوات واقعية لكل مركبة"],p:85},
- {n:"حزمة السريات",t:"الحزم العسكرية",e:"🚨",i:"حزمة عسكرية للعمل ضمن السريات والفرق الميدانية المنظمة.",f:[]},
- {n:"حزمة مكافحة المخدرات",t:"الحزم العسكرية",e:"💊",f:["مطابقة للواقع بنسبة 100%","عدد المركبات أكثر من 10 + مركبات سرية","جميع القطع بالمركبة إكسترا","سيفتي مشابه للواقع"],p:45}
+ {k:"smuggling",n:"حزمة التهريب",t:"المواطنين",e:"🛻",i:"هذه الحزمة هي التي تفتح لك التهريب داخل المدينة.",f:["9 مركبات","قابلة للتعديل والزيادة","إكسترا خاص لكل مركبة"],p:30},
+ {k:"vip",n:"حزمة VIP",t:"المواطنين",e:"🎖️",f:["تشمل الحزمة أكثر من 60 مركبة","الحزمة واقعية بالكامل","وزنيات واقعية","إكسترا واقعي وجودة عالية في تفاصيل المركبة","أصوات المركبات المعدلة واقعية"],p:50},
+ {k:"heavy",n:"حزمة المعدات الثقيلة",t:"المواطنين",e:"🚚",f:["مشابهة للواقع وداخلية واقعية","أنميشن لحركة الدفرنسات","عدد التريلات 8"],x:["بوز سقس","بوز نقل","بوز قلاب","سوبر سقس راس","راس بوز","إل بي عايدي","إل بي سقس","راس إل بي سقس"],p:70},
+ {k:"elite",n:"حزمة ELITE",t:"المواطنين",e:"💠",f:["عدد المركبات أكثر من 70","مركبات واقعية بالكامل من وزنيات وإكسترا","أصوات واقعية لكل مركبة"],p:85},
+ {k:"sirayat",n:"حزمة السريات",t:"الحزم العسكرية",e:"🚨",i:"حزمة عسكرية للعمل ضمن السريات والفرق الميدانية المنظمة.",f:[]},
+ {k:"narcotics",n:"حزمة مكافحة المخدرات",t:"الحزم العسكرية",e:"💊",f:["مطابقة للواقع بنسبة 100%","عدد المركبات أكثر من 10 + مركبات سرية","جميع القطع بالمركبة إكسترا","سيفتي مشابه للواقع"],p:45}
 ];
 const SOLD=["جندي","جندي أول","عريف","وكيل رقيب","رقيب","رقيب أول","رئيس رقباء"];
 const OFF=["ملازم","ملازم أول","نقيب","رائد","مقدم","عقيد","عميد","لواء","فريق","فريق أول"];
@@ -535,7 +532,7 @@ document.querySelectorAll("[data-ic]").forEach(e=>e.innerHTML=ico(e.dataset.ic))
 const BASE_PAGES=[["home","الرئيسية"],["rules","القوانين"],["packages","الحزم"],["ranks","الرتب"],["transfer","النقل"]];
 let PAGES=BASE_PAGES.slice();
 const nav=document.getElementById("nav"),pill=document.getElementById("pill"),main=document.getElementById("main"),wipe=document.getElementById("wipe");
-const NAVICO={home:"home",packages:"box",ranks:"star",rules:"book",adminexam:"shield",activate:"bolt",transfer:"swap"};
+const NAVICO={home:"home",packages:"box",ranks:"star",rules:"book",transfer:"swap"};
 function buildNav(){nav.querySelectorAll("button").forEach(b=>b.remove());PAGES.forEach(([id,t])=>{const b=document.createElement("button");b.dataset.go=id;b.innerHTML=ico(NAVICO[id]||"swap")+`<span>${t}</span>`;nav.appendChild(b)})}
 buildNav();
 let cur="home";
@@ -568,7 +565,7 @@ function counters(){
 }
 
 /* ---------- ticker & rotating text ---------- */
-const msgs=["توزيع الحزم مفتوح","نقل العسكرية مفتوح","التقديم على النقل فُتح","MLHM | POLICE MODE"];
+const msgs=["توزيع الحزم مفتوح","ترتيب العسكرية مفتوح","التقديم على النقل فُتح","MLHM | POLICE MODE"];
 document.getElementById("tick").innerHTML=[...msgs,...msgs,...msgs,...msgs].map(m=>`<span>${ico("shield")}${m}</span>`).join("");
 const rotEl=document.getElementById("rot");let ri=0;
 setInterval(()=>{ri=(ri+1)%3;rotEl.style.animation="none";void rotEl.offsetWidth;rotEl.style.animation="";rotEl.textContent=msgs[ri]},2600);
@@ -578,17 +575,28 @@ const filters=document.getElementById("filters"),pkGrid=document.getElementById(
 ["الكل","المواطنين","الحزم العسكرية"].forEach((f,i)=>{const b=document.createElement("button");b.className="f"+(i?"":" on");b.textContent=f;b.onclick=()=>{
   filters.querySelectorAll(".f").forEach(x=>x.classList.remove("on"));b.classList.add("on");
   pkGrid.querySelectorAll(".pk").forEach((c,k)=>{const show=f==="الكل"||c.dataset.t===f;c.classList.toggle("hide",!show);if(show){c.classList.remove("pop");void c.offsetWidth;c.style.animationDelay=k*70+"ms";c.classList.add("pop")}})};filters.appendChild(b)});
+const IMGP={};
 PACKAGES.forEach((p,i)=>{
   const c=document.createElement("article");c.className="pk rv";c.dataset.t=p.t;
-  c.innerHTML=`<div class="top"><div class="ic">${p.e}</div><span class="badge"><span class="dot"></span>مفتوح</span></div><h3>${p.n}</h3>${p.i?`<p>${p.i}</p>`:""}<ul class="ft">${p.f.map(x=>`<li>${x}</li>`).join("")}</ul><div class="pr">${p.p?`<span>سعر الحزمة</span><b>${p.p} ريال</b>`:`<span>السعر والتفاصيل في الديسكورد</span>`}</div><button class="btn sec">${p.x?"المميزات والتريلات":"التفاصيل والشراء"}</button>`;
+  c.innerHTML=`<div class="pimg" hidden></div><div class="top"><div class="ic">${p.e}</div><span class="badge"><span class="dot"></span>مفتوح</span></div><h3>${p.n}</h3>${p.i?`<p>${p.i}</p>`:""}<ul class="ft">${p.f.map(x=>`<li>${x}</li>`).join("")}</ul><div class="pr">${p.p?`<span>سعر الحزمة</span><b>${p.p} ريال</b>`:`<span>السعر والتفاصيل في الديسكورد</span>`}</div><button class="btn sec">${p.x?"المميزات والتريلات":"التفاصيل والشراء"}</button>`;
   c.querySelector("button").onclick=()=>openSheet(p);
+  loadImg(c.querySelector(".pimg"),p.k);
   c.addEventListener("pointermove",e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
     c.style.setProperty("--ry",(x-.5)*-10+"deg");c.style.setProperty("--rx",(y-.5)*10+"deg");c.style.setProperty("--mx",x*100+"%");c.style.setProperty("--my",y*100+"%")});
   c.addEventListener("pointerleave",()=>{c.style.setProperty("--rx","0deg");c.style.setProperty("--ry","0deg")});
   pkGrid.appendChild(c);
 });
 const sheet=document.getElementById("sheet"),ov=document.getElementById("ov");let curPk=null;
-function openSheet(p){shT.textContent=p.n;shP.textContent=p.i||"";shP.style.display=p.i?"":"none";
+function loadImg(box,key){
+  const exts=["jpg","jpeg","png","webp"];
+  const find=()=>IMGP[key]||(IMGP[key]=new Promise(res=>{let n=0;(function next(){
+    if(n>=exts.length)return res(null);
+    const src="images/"+key+"."+exts[n++],im=new Image();
+    im.onload=()=>res(src);im.onerror=next;im.src=src;
+  })()}));
+  find().then(src=>{if(!src){box.hidden=true;return}box.innerHTML="";const im=document.createElement("img");im.src=src;im.alt="";box.appendChild(im);box.hidden=false});
+}
+function openSheet(p){loadImg(shImg,p.k);shT.textContent=p.n;shP.textContent=p.i||"";shP.style.display=p.i?"":"none";
   shL.innerHTML=p.f.map(x=>`<li>${x}</li>`).join("");
   shE.innerHTML=p.x?`<h4 style="font-family:var(--fh);margin:0 0 10px;color:var(--g)">التريلات</h4><div class="chips">${p.x.map(x=>`<span>${x}</span>`).join("")}</div>`:"";
   shPr.innerHTML=p.p?`<span>سعر الحزمة</span><b>${p.p} ريال</b>`:`<span>السعر والتفاصيل في الديسكورد</span>`;
@@ -755,72 +763,10 @@ addEventListener("pointermove",e=>{glow.style.left=e.clientX+"px";glow.style.top
   f();
 })();
 
-/* ---------- exams (role based) ---------- */
-const EXAMS={
- adminexam:{pass:80,intro:"هذا الاختبار مخصص لمن حصل على رول القبول المبدئي في الإدارة. الأسئلة من قوانين الإدارة.",qs:[
-  {q:"هل يحق للإداري استخدام الصلاحيات الإدارية أثناء لعب الرول بلاي؟",o:["لا، يمنع ذلك","نعم، متى ما احتاج","نعم، إذا كان مع أصدقائه"],a:0},
-  {q:"هل يحق للإداري إعطاء لاعب رتبة أو سيارة أو أموال أو سلاح دون صلاحية وتصريح رسمي؟",o:["نعم، إذا كان صديقه","لا، يمنع ذلك","نعم، مرة واحدة فقط"],a:1},
-  {q:"ماذا يفعل الإداري عند وجود تعارض مصالح في حالة ما؟",o:["يكمل الحالة لأنه الأعرف بها","يخبر اللاعب بالقرار فقط","يبتعد عن الحالة ويحولها إلى إداري آخر"],a:2},
-  {q:"هل يحق للإداري فك الباند أو تخفيف العقوبة دون صلاحية أو موافقة المسؤول المختص؟",o:["لا، يمنع ذلك","نعم، إذا اقتنع بعذر اللاعب","نعم، للأصدقاء فقط"],a:0},
-  {q:"كيف يتعامل الإداري مع جميع اللاعبين؟",o:["حسب قربهم منه","بالمساواة دون تمييز أو محاباة","حسب رتبهم في السيرفر"],a:1},
-  {q:"أين تُحل المشاكل والخلافات الإدارية؟",o:["في غرف اللاعبين","في الشات العام","داخل القنوات الإدارية المخصصة"],a:2},
-  {q:"هل يجوز إفشاء محتوى التذاكر أو الشكاوى أو المحادثات الإدارية دون إذن؟",o:["لا، يمنع ذلك","نعم، إذا كان الموضوع بسيطاً","نعم، لأصدقاء الإداري"],a:0},
-  {q:"من يحق له محاسبة أي إداري يثبت تقصيره أو استغلاله لصلاحياته؟",o:["أي لاعب في السيرفر","الإدارة العليا","الإداري نفسه"],a:1}
- ]},
- activate:{pass:80,agree:true,intro:"لم توافق بعد على الشروط والأحكام. أجب على الأسئلة التالية من قوانين السيرفر والشراء، ثم أقرّ بالموافقة لإكمال التفعيل.",qs:[
-  {q:"ما أقصى مدة لتسليم الحزمة بعد تأكيد الدفع؟",o:["12 ساعة","72 ساعة","24 ساعة"],a:2},
-  {q:"هل يمكن استرجاع الحزمة أو استبدالها بعد التسليم؟",o:["لا، المنتجات غير قابلة للاسترجاع أو الاستبدال نهائياً","نعم، خلال 7 أيام","نعم، إذا حصلت على باند"],a:0},
-  {q:"ما الحد الأدنى لعدد المواطنين لخطف عسكري في سيناريو؟",o:["2","3","5"],a:1},
-  {q:"بعد كم دقيقة من بداية المطاردة يسمح بالصدم الاحترافي؟",o:["بعد 5 دقائق","بعد دقيقة واحدة","في أي وقت"],a:0},
-  {q:"كم أقصى عدد دوريات مسموح بمشاركتها في المطاردة الواحدة؟",o:["5","3","بدون حد"],a:1},
-  {q:"ماذا يحدث إذا خرجت من سيرفر الديسكورد بعد شراء حزمة؟",o:["يعاد تسليم الحزمة لحسابك الجديد","يتم تعويضك خلال 24 ساعة","لن يتم تعويضك بأي شكل"],a:2},
-  {q:"ما حكم استخدام المركبة كسلاح ودهس اللاعبين؟",o:["مسموح في السيناريوهات","ممنوع (VDM)","مسموح للعسكر فقط"],a:1},
-  {q:"من المسؤول عن حساب الديسكورد المسلّم إليه الحزمة؟",o:["المشتري نفسه","إدارة السيرفر","الشخص الذي أرسل الدفع"],a:0}
- ]}
-};
-const EXTITLE={adminexam:"اختبار إلكتروني للإدارة",activate:"اختبار تفعيل إلكتروني"};
-const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
-function mountExam(key){
-  const E=EXAMS[key],box=document.getElementById("ex-"+key);
-  let order,i,score,busy;
-  function intro(){
-    box.innerHTML=`<div class="xcard"><h3 class="t" style="font-family:var(--fh);font-size:24px;margin:0 0 12px">${EXTITLE[key]}</h3><p class="ri">${E.intro}</p><p class="ri">عدد الأسئلة: ${E.qs.length}. الحد الأدنى للنجاح: ${E.pass}%.</p><button class="btn pri" id="st-${key}">ابدأ الاختبار</button></div>`;
-    document.getElementById("st-"+key).onclick=begin;
-  }
-  function begin(){order=shuffle(E.qs);i=0;score=0;busy=false;draw()}
-  function draw(){
-    if(i>=order.length)return done();
-    const q=order[i],opts=shuffle(q.o.map((t,k)=>({t,ok:k===q.a})));
-    box.innerHTML=`<div class="xcard"><div class="xbar"><i style="width:${i/order.length*100}%"></i></div><div class="xn">السؤال ${i+1} من ${order.length}</div><p class="xq">${q.q}</p>${opts.map((o,k)=>`<button class="xo" data-k="${k}">${o.t}</button>`).join("")}</div>`;
-    box.querySelectorAll(".xo").forEach(b=>b.onclick=()=>{
-      if(busy)return;busy=true;
-      if(opts[+b.dataset.k].ok){score++;b.classList.add("ok")}
-      else{b.classList.add("no");box.querySelectorAll(".xo").forEach((x,k)=>{if(opts[k].ok)x.classList.add("ok")})}
-      setTimeout(()=>{i++;busy=false;draw()},1100);
-    });
-  }
-  function done(){
-    const n=order.length,pct=Math.round(score/n*100),pass=pct>=E.pass,p=dcProfile()||{};
-    box.innerHTML=`<div class="xcard xres"><div class="xn">نتيجتك</div><div class="big ${pass?"":"bad"}">${pct}%</div><p>${score} من ${n}، ${pass?"ناجح ✅":"لم تجتز الاختبار"}</p>`+
-     (pass?`${E.agree?`<label class="xag"><input type="checkbox" id="ag-${key}"><span>أقرّ بأنني قرأت الشروط والأحكام وأوافق عليها.</span></label>`:""}<div class="ctas" style="justify-content:center"><button class="btn pri" id="cp-${key}">انسخ النتيجة</button><a class="btn sec" href="https://discord.gg/MLHM" target="_blank" rel="noopener noreferrer" style="text-decoration:none">افتح تذكرة في الديسكورد</a></div>`
-      :`<p class="ri">الحد الأدنى للنجاح ${E.pass}%. راجع القوانين وأعد المحاولة.</p><button class="btn pri" id="rt-${key}">أعد الاختبار</button>`)+`</div>`;
-    const rt=document.getElementById("rt-"+key);if(rt)rt.onclick=begin;
-    const cp=document.getElementById("cp-"+key);
-    if(cp)cp.onclick=()=>{
-      if(E.agree&&!document.getElementById("ag-"+key).checked){toast("وافق على الشروط والأحكام أولاً");return}
-      copy(`نتيجة ${EXTITLE[key]}\nالاسم: ${p.name||"-"}\nمعرّف الديسكورد: ${p.id||"-"}\nالنتيجة: ${score}/${n} (${pct}%)`+(E.agree?"\nالموافقة على الشروط والأحكام: نعم":""),"تم نسخ النتيجة. الصقها في التذكرة");
-    };
-  }
-  intro();
-}
-mountExam("adminexam");mountExam("activate");
-
-/* ---------- discord: live count + login ---------- */
+/* ---------- discord: live count + login + FiveM ---------- */
 const DISCORD_CLIENT_ID=""; /* معرّف التطبيق (Client ID) من discord.com/developers */
-const GUILD_ID="";          /* معرّف السيرفر */
-const ROLE_ADMIN_ACCEPT=""; /* معرّف رول: قبول مبدئي في الإدارة */
-const ROLE_NOT_AGREED="";   /* معرّف رول: غير موافق على الشروط والأحكام */
-const REDIRECT=location.origin+location.pathname;
+const API_URL="";           /* رابط الـ Worker لعدّاد فايف ام، مثال: https://mlhm-api.xxxx.workers.dev */
+const CFX_CODE="4dk979";          /* كود سيرفر فايف ام: الجزء الأخير من cfx.re/join/xxxxx */
 function countTo(el,to){const from=+el.dataset.v||0,t0=performance.now();el.dataset.v=to;(function st(t){const p=Math.min((t-t0)/1200,1);el.textContent=Math.round(from+(to-from)*(1-Math.pow(1-p,3))).toLocaleString("en-US");if(p<1)requestAnimationFrame(st)})(t0)}
 async function loadCount(){
   try{
@@ -828,10 +774,26 @@ async function loadCount(){
     if(!r.ok)throw new Error("x");
     const j=await r.json();
     if(typeof j.approximate_member_count!=="number")throw new Error("x");
-    dcount.hidden=false;countTo(dcM,j.approximate_member_count);countTo(dcO,j.approximate_presence_count||0);
+    dcD1.hidden=false;dcD2.hidden=false;countTo(dcM,j.approximate_member_count);countTo(dcO,j.approximate_presence_count||0);
   }catch(e){}
 }
-loadCount();setInterval(()=>{if(!document.hidden)loadCount()},60000);
+async function loadFive(){
+  if(!API_URL||!CFX_CODE)return;
+  try{
+    const r=await fetch(API_URL.replace(/\/$/,"")+"/fivem");
+    if(!r.ok)throw new Error("x");
+    const j=await r.json();
+    if(typeof j.online!=="number")throw new Error("x");
+    dcFive.hidden=false;dcFMs.hidden=!j.max;countTo(dcFO,j.online);if(j.max)countTo(dcFM,j.max);
+  }catch(e){}
+}
+function refreshCounts(){loadCount();loadFive()}
+refreshCounts();setInterval(()=>{if(!document.hidden)refreshCounts()},60000);
+document.addEventListener("visibilitychange",()=>{if(!document.hidden)refreshCounts()});
+if(CFX_CODE){
+  joinFive.href="https://cfx.re/join/"+CFX_CODE;joinFive.hidden=false;copyConn.hidden=false;
+  copyConn.onclick=()=>copy("connect cfx.re/join/"+CFX_CODE,"تم نسخ أمر الاتصال، الصقه في F8 داخل فايف ام");
+}
 
 const esc=t=>String(t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function dcProfile(){try{return JSON.parse(localStorage.getItem("mlhm-user")||"null")}catch(e){return null}}
@@ -840,28 +802,14 @@ function renderAcct(){
   const p=dcProfile();
   acct.innerHTML=p?`<div class="who"><div class="av">${avHTML(p)}</div><span>${esc(p.name)}</span><button id="logout">خروج</button></div>`:`<button class="theme" id="login"><span>تسجيل الدخول بالديسكورد</span><span>🔑</span></button>`;
   login2.innerHTML=p?`<span class="av2">${avHTML(p)}</span>`:"🔑";
-  refreshPages();
   const li=document.getElementById("login");if(li)li.onclick=startLogin;
   const lo=document.getElementById("logout");if(lo)lo.onclick=()=>{try{localStorage.removeItem("mlhm-user")}catch(e){}renderAcct();toast("تم تسجيل الخروج")};
-}
-function access(){
-  if(/[?&]preview=1/.test(location.search))return{admin:true,activate:true};
-  const r=(dcProfile()||{}).roles||[];
-  return{admin:!!ROLE_ADMIN_ACCEPT&&r.includes(ROLE_ADMIN_ACCEPT),activate:!!ROLE_NOT_AGREED&&r.includes(ROLE_NOT_AGREED)};
-}
-function refreshPages(){
-  const a=access();
-  PAGES=BASE_PAGES.slice();
-  if(a.admin)PAGES.splice(1,0,["adminexam","اختبار الإدارة"]);
-  if(a.activate)PAGES.splice(1,0,["activate","اختبار التفعيل"]);
-  buildNav();
-  go(PAGES.some(x=>x[0]===cur)?cur:"home",true);
 }
 function startLogin(){
   if(!DISCORD_CLIENT_ID){toast("تسجيل الدخول غير مفعّل بعد");return}
   const st=Array.from(crypto.getRandomValues(new Uint32Array(4))).join("-");
   try{sessionStorage.setItem("mlhm-st",st)}catch(e){}
-  location.href="https://discord.com/oauth2/authorize?client_id="+encodeURIComponent(DISCORD_CLIENT_ID)+"&response_type=token&scope=identify%20guilds.members.read&redirect_uri="+encodeURIComponent(REDIRECT)+"&state="+encodeURIComponent(st);
+  location.href="https://discord.com/oauth2/authorize?client_id="+encodeURIComponent(DISCORD_CLIENT_ID)+"&response_type=token&scope=identify&redirect_uri="+encodeURIComponent(location.origin+location.pathname)+"&state="+encodeURIComponent(st);
 }
 login2.onclick=()=>{const p=dcProfile();p?toast("مسجّل باسم "+p.name):startLogin()};
 async function finishLogin(){
@@ -876,10 +824,9 @@ async function finishLogin(){
     const r=await fetch("https://discord.com/api/users/@me",{headers:{Authorization:"Bearer "+tok}});
     if(!r.ok)throw new Error("x");
     const u=await r.json();
-    const prof={id:String(u.id),name:u.global_name||u.username,avatar:u.avatar||null,roles:[]};
-    if(GUILD_ID){try{const m=await fetch("https://discord.com/api/users/@me/guilds/"+encodeURIComponent(GUILD_ID)+"/member",{headers:{Authorization:"Bearer "+tok}});if(m.ok){const mj=await m.json();prof.roles=(mj.roles||[]).map(String)}}catch(e){}}
+    const prof={id:String(u.id),name:u.global_name||u.username,avatar:u.avatar||null};
     try{localStorage.setItem("mlhm-user",JSON.stringify(prof))}catch(e){}
-    renderAcct();toast("أهلاً بك يا "+prof.name);if(access().activate)setTimeout(()=>go("activate"),500);
+    renderAcct();toast("أهلاً بك يا "+prof.name);
   }catch(e){toast("تعذّر تسجيل الدخول، حاول مرة ثانية")}
 }
 renderAcct();finishLogin();
