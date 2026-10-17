@@ -404,7 +404,7 @@ ul.rl.bul>li::before{content:"";flex:none;width:9px;height:9px;border-radius:50%
             <button class="btn pri" data-go="packages"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg>تصفح الحزم</button>
             <a class="btn sec jn" id="joinFive" target="_blank" rel="noopener noreferrer" hidden style="text-decoration:none">🎮 ادخل السيرفر</a><button class="btn sec" id="copyConn" hidden>انسخ أمر الاتصال</button><button class="btn sec" data-go="transfer">اطلب نقل</button>
           </div>
-          <div class="dcount" id="dcount"><div id="dcD1" hidden><span class="dot"></span><b id="dcO">0</b><span>متصل الآن في الديسكورد</span></div><div id="dcD2" hidden><span>👥</span><b id="dcM">0</b><span>عضو في الديسكورد</span></div><div id="dcFive" hidden><span>🎮</span><b id="dcFO">0</b><span id="dcFMs">/ <b id="dcFM">0</b></span><span>لاعب داخل السيرفر</span></div></div>
+          <div class="dcount" id="dcount"><div id="dcD1" hidden><span class="dot"></span><b id="dcO">0</b><span>متصل الآن في الديسكورد</span></div><div id="dcD2" hidden><span>👥</span><b id="dcM">0</b><span>عضو في الديسكورد</span></div></div>
         </div>
         <div class="stage" id="stage">
           <div class="ring r2"></div><div class="ring r1"></div>
@@ -765,7 +765,6 @@ addEventListener("pointermove",e=>{glow.style.left=e.clientX+"px";glow.style.top
 
 /* ---------- discord: live count + login + FiveM ---------- */
 const DISCORD_CLIENT_ID=""; /* معرّف التطبيق (Client ID) من discord.com/developers */
-const API_URL="";           /* رابط الـ Worker لعدّاد فايف ام، مثال: https://mlhm-api.xxxx.workers.dev */
 const CFX_CODE="4dk979";          /* كود سيرفر فايف ام: الجزء الأخير من cfx.re/join/xxxxx */
 function countTo(el,to){const from=+el.dataset.v||0,t0=performance.now();el.dataset.v=to;(function st(t){const p=Math.min((t-t0)/1200,1);el.textContent=Math.round(from+(to-from)*(1-Math.pow(1-p,3))).toLocaleString("en-US");if(p<1)requestAnimationFrame(st)})(t0)}
 async function loadCount(){
@@ -777,17 +776,7 @@ async function loadCount(){
     dcD1.hidden=false;dcD2.hidden=false;countTo(dcM,j.approximate_member_count);countTo(dcO,j.approximate_presence_count||0);
   }catch(e){}
 }
-async function loadFive(){
-  if(!API_URL||!CFX_CODE)return;
-  try{
-    const r=await fetch(API_URL.replace(/\/$/,"")+"/fivem");
-    if(!r.ok)throw new Error("x");
-    const j=await r.json();
-    if(typeof j.online!=="number")throw new Error("x");
-    dcFive.hidden=false;dcFMs.hidden=!j.max;countTo(dcFO,j.online);if(j.max)countTo(dcFM,j.max);
-  }catch(e){}
-}
-function refreshCounts(){loadCount();loadFive()}
+function refreshCounts(){loadCount()}
 refreshCounts();setInterval(()=>{if(!document.hidden)refreshCounts()},60000);
 document.addEventListener("visibilitychange",()=>{if(!document.hidden)refreshCounts()});
 if(CFX_CODE){
